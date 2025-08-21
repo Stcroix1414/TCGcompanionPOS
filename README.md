@@ -29,7 +29,7 @@ Visit the live site: [TCGcompanionPOS](https://stcroix1414.github.io/TCGcompanio
 - **Professional POS System** - Full-featured point-of-sale with real-time inventory management
 - **Smart Inventory Management** - Master inventory system with photo support and condition tracking
 - **Pre-Event Planning** - Smart inventory selection and profit projections
-- **Card Trading System** - Dual-entry trading with manual or API-based valuations
+- **Card Trading System** - Dual-entry trading with manual valuations (no 3rd party services)
 - **Secure Database Integration** - MongoDB integration with automatic fallback to local storage
 
 ## 🖼️ Screenshots
