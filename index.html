@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TCGcompanionPOS - Professional Event Management System</title>
+    <meta name="description" content="Professional event management system with inventory tracking, POS functionality, and analytics dashboard. Built by AM TCG & Collectibles for Pokemon card vendors who sell at events.">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #1e293b;
+            --primary-dark: #0f172a;
+            --secondary-color: #334155;
+            --accent-color: #3b82f6;
+            --accent-light: #60a5fa;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #64748b;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-md);
+        }
+
+        .cta-button:hover {
+            background: var(--accent-light);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 10rem 0 8rem;
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(circle at 25% 25%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                              radial-gradient(circle at 75% 75%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background: var(--light-gray);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--medium-gray);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Screenshots Section */
+        .screenshots {
+            padding: 6rem 0;
+            background: white;
+        }
+
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .screenshot-card {
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .screenshot-placeholder {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .screenshot-image {
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--medium-gray);
+        }
+
+        .screenshot-image img {
+            width: 100%;
+            height: auto;
+            max-height: 600px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            background: white;
+        }
+
+        /* Make analytics dashboard screenshot larger */
+        .screenshot-image img[src="screenshot6_analytics.png"] {
+            max-height: 800px;
+        }
+
+        .screenshot-card:hover .screenshot-image img {
+            transform: scale(1.05);
+        }
+
+        .screenshot-info {
+            padding: 1.5rem;
+        }
+
+        .screenshot-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .screenshot-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 0;
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--text-primary), var(--dark-gray));
+            color: white;
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            transition: all 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-primary);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            position: relative;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .modal-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .close {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .close:hover {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .feature-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .feature-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .feature-detail-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-detail-icon i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-detail-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-detail-content p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .feature-highlights {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-highlights li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .feature-highlights li i {
+            color: var(--success-color);
+            font-size: 0.9rem;
+        }
+
+        .modal-footer {
+            background: var(--light-gray);
+            padding: 2rem;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .feature-detail {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="logo">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>TCGcompanionPOS</span>
+                </a>
+                <div class="nav-links">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#screenshots" class="nav-link">Screenshots</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#demo" class="cta-button">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>TCGcompanionPOS<br>Professional Event Management</h1>
+                <p>Comprehensive inventory management, point-of-sale functionality, and analytics dashboard built by AM TCG & Collectibles for Pokemon card vendors who sell at events.</p>
+                <div class="hero-buttons">
+                    <a href="#demo" class="btn btn-primary">
+                        <i class="fas fa-play"></i>
+                        View Demo
+                    </a>
+                    <a href="#" class="btn btn-secondary" onclick="showFeaturesModal()">
+                        <i class="fas fa-info-circle"></i>
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">Everything You Need to Succeed</h2>
+                <p class="section-subtitle">From pre-event planning to post-event analysis, our comprehensive system handles every aspect of your Pokemon card business.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Multi-Event Dashboard</h3>
+                    <p class="feature-description">Track performance across multiple events with comprehensive analytics, visual charts, and automated insights. Compare events and identify trends to maximize profitability.</p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <h3 class="feature-title">Professional POS System</h3>
+                    <p class="feature-description">Full-featured point-of-sale interface with real-time inventory management, multiple payment methods, receipt generation, and automatic inventory deduction.</p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Inventory Management</h3>
+                    <p class="feature-description">Master inventory system with photo support, condition tracking, low stock alerts, and intelligent recommendations based on profitability and sales history.</p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Pre-Event Planning</h3>
+                    <p class="feature-description">Plan your events with smart inventory selection, expense estimation, and profit projections. Know your potential ROI before you even arrive at the event.</p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Card Trading System</h3>
+                    <p class="feature-description">Dual-entry trading system with manual valuation or API-based price lookup. Track trade values and automatically update inventory.</p>
+                </div>
+
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Secure Database Integration</h3>
+                    <p class="feature-description">MongoDB integration with automatic fallback to local storage. CSRF protection, input validation, and secure file uploads ensure your data is safe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <h2 class="section-title">See It In Action</h2>
+                <p class="section-subtitle">Professional interfaces designed for efficiency and ease of use at busy events.</p>
+            </div>
+            
+            <div class="screenshots-grid">
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot6_analytics.png" alt="Analytics Dashboard Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Analytics Dashboard</h3>
+                        <p class="screenshot-description">Comprehensive analytics and performance tracking across all your events with visual charts and insights.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot1_pos1.png" alt="POS System Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Professional POS System</h3>
+                        <p class="screenshot-description">Full-featured point-of-sale interface with real-time inventory updates and receipt generation.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot2_eventcreate.png" alt="Event Creation Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Event Creation</h3>
+                        <p class="screenshot-description">Smart event planning with inventory selection and profit projections before you arrive.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot4_trading.png" alt="Trading System Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Card Trading System</h3>
+                        <p class="screenshot-description">Dual-entry trading system with manual or API-based valuations and automatic inventory updates.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot5_conventionmgmt.png" alt="Convention Management Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Convention Management</h3>
+                        <p class="screenshot-description">Complete event management with vendor tracking, scheduling, and performance monitoring.</p>
+                    </div>
+                </div>
+
+                <div class="screenshot-card animate-on-scroll">
+                    <div class="screenshot-image">
+                        <img src="screenshot3_customerdisplay.png" alt="Customer Display Screenshot" />
+                    </div>
+                    <div class="screenshot-info">
+                        <h3 class="screenshot-title">Customer Display</h3>
+                        <p class="screenshot-description">Professional customer-facing display for transparent pricing and smooth checkout experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="animate-on-scroll">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Event Creation Methods</div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Real-Time Updates</div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Payment Methods</div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Events Trackable</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="demo" class="cta-section">
+        <div class="container">
+            <div class="cta-content animate-on-scroll">
+                <h2>Ready to Transform Your Pokemon Card Business?</h2>
+                <p>Join professional Pokemon card vendors who trust our system to manage their events and maximize profits.</p>
+                
+                <div class="social-links">
+                    <a href="https://instagram.com/am_tcgcollector" class="social-link" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                        Follow on Instagram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TCGcompanionPOS</h3>
+                    <p>Professional event management system with inventory tracking, POS functionality, and analytics dashboard. Built by AM TCG & Collectibles for Pokemon card vendors who sell at events.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Features</h3>
+                    <p><a href="#features">Multi-Event Dashboard</a></p>
+                    <p><a href="#features">POS System</a></p>
+                    <p><a href="#features">Inventory Management</a></p>
+                    <p><a href="#features">Trading System</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p><a href="https://instagram.com/am_tcgcollector" target="_blank">Instagram</a></p>
+                    <p><a href="mailto:amtcgcollectibles@gmail.com">Email</a></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TCGcompanionPOS. Built by AM TCG & Collectibles for Pokemon card vendors.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Features Modal -->
+    <div id="featuresModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-star"></i> Detailed Features Overview</h2>
+                <p>Discover everything TCGcompanionPOS can do for your Pokemon card business</p>
+                <span class="close" onclick="closeFeaturesModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Multi-Event Dashboard</h3>
+                        <p>Get a comprehensive view of your Pokemon card business performance across all events. Track trends, compare profitability, and make data-driven decisions.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> Visual charts and analytics</li>
+                            <li><i class="fas fa-check"></i> Event comparison tools</li>
+                            <li><i class="fas fa-check"></i> Profit trend analysis</li>
+                            <li><i class="fas fa-check"></i> Performance insights and recommendations</li>
+                            <li><i class="fas fa-check"></i> Export data for tax purposes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-cash-register"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Professional POS System</h3>
+                        <p>Complete point-of-sale solution designed specifically for Pokemon card vendors. Process sales quickly and efficiently during busy events.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> Real-time inventory updates</li>
+                            <li><i class="fas fa-check"></i> Multiple payment methods (Cash, Card, Venmo, PayPal)</li>
+                            <li><i class="fas fa-check"></i> Professional receipt generation</li>
+                            <li><i class="fas fa-check"></i> Customer loyalty tracking</li>
+                            <li><i class="fas fa-check"></i> Digital customer display</li>
+                            <li><i class="fas fa-check"></i> Quick barcode scanning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-boxes"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Smart Inventory Management</h3>
+                        <p>Centralized inventory system that tracks every card, booster pack, and accessory. Never lose track of your valuable inventory again.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> Photo support for every item</li>
+                            <li><i class="fas fa-check"></i> Condition tracking (NM, LP, MP, HP, DMG)</li>
+                            <li><i class="fas fa-check"></i> Graded card support (PSA, BGS, CGC)</li>
+                            <li><i class="fas fa-check"></i> Low stock alerts</li>
+                            <li><i class="fas fa-check"></i> Profitability analysis</li>
+                            <li><i class="fas fa-check"></i> Barcode and QR code generation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Pre-Event Planning</h3>
+                        <p>Plan your events strategically by selecting the right inventory mix and estimating potential profits before you even leave home.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> Smart inventory selection</li>
+                            <li><i class="fas fa-check"></i> Profit projections</li>
+                            <li><i class="fas fa-check"></i> Expense tracking and estimation</li>
+                            <li><i class="fas fa-check"></i> ROI calculations</li>
+                            <li><i class="fas fa-check"></i> Event comparison planning</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Card Trading System</h3>
+                        <p>Professional trading interface that helps you make fair trades while automatically updating your inventory values.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> Dual-entry trading system</li>
+                            <li><i class="fas fa-check"></i> Manual or API-based valuations</li>
+                            <li><i class="fas fa-check"></i> Trade value tracking</li>
+                            <li><i class="fas fa-check"></i> Automatic inventory updates</li>
+                            <li><i class="fas fa-check"></i> Trade history and analytics</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-detail">
+                    <div class="feature-detail-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="feature-detail-content">
+                        <h3>Secure Data Management</h3>
+                        <p>Your data is protected with enterprise-level security features and automatic backups. Works online and offline.</p>
+                        <ul class="feature-highlights">
+                            <li><i class="fas fa-check"></i> MongoDB cloud integration</li>
+                            <li><i class="fas fa-check"></i> Local storage fallback</li>
+                            <li><i class="fas fa-check"></i> CSRF protection</li>
+                            <li><i class="fas fa-check"></i> Input validation and sanitization</li>
+                            <li><i class="fas fa-check"></i> Secure file uploads</li>
+                            <li><i class="fas fa-check"></i> Data export and import</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <p>Ready to take your Pokemon card business to the next level?</p>
+                <a href="#demo" class="btn btn-secondary" onclick="closeFeaturesModal()">
+                    <i class="fas fa-rocket"></i>
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-4px) scale(1)';
+            });
+        });
+
+        // Features Modal Functions
+        function showFeaturesModal() {
+            document.getElementById('featuresModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeFeaturesModal() {
+            document.getElementById('featuresModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Close modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('featuresModal');
+            if (event.target === modal) {
+                closeFeaturesModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeFeaturesModal();
+            }
+        });
+    </script>
+</body>
+</html>
