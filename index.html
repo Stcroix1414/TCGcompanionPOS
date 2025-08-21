@@ -371,6 +371,7 @@
             object-fit: contain;
             transition: transform 0.3s ease;
             background: white;
+            cursor: pointer;
         }
 
         /* Make analytics dashboard screenshot larger */
@@ -380,6 +381,140 @@
 
         .screenshot-card:hover .screenshot-image img {
             transform: scale(1.05);
+        }
+
+        /* Image Lightbox Modal */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .image-modal-content {
+            position: relative;
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            object-fit: contain;
+            top: 50%;
+            transform: translateY(-50%);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .image-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 3001;
+        }
+
+        .image-modal-close:hover {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+
+        .image-modal-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            backdrop-filter: blur(10px);
+        }
+
+        .image-modal-caption h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .image-modal-caption p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        /* Navigation arrows for image modal */
+        .image-modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 16px;
+            user-select: none;
+            transition: all 0.2s ease;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+        }
+
+        .image-modal-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .image-modal-prev {
+            left: 20px;
+        }
+
+        .image-modal-next {
+            right: 20px;
+        }
+
+        /* Mobile responsiveness for image modal */
+        @media (max-width: 768px) {
+            .image-modal-content {
+                width: 95%;
+                max-height: 80vh;
+            }
+
+            .image-modal-close {
+                top: 10px;
+                right: 15px;
+                font-size: 30px;
+            }
+
+            .image-modal-caption {
+                bottom: 10px;
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .image-modal-caption h3 {
+                font-size: 1.1rem;
+            }
+
+            .image-modal-nav {
+                font-size: 24px;
+                padding: 12px;
+            }
+
+            .image-modal-prev {
+                left: 10px;
+            }
+
+            .image-modal-next {
+                right: 10px;
+            }
         }
 
         .screenshot-info {
@@ -1213,6 +1348,18 @@
         </div>
     </footer>
 
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
+        <img class="image-modal-content" id="modalImage">
+        <div class="image-modal-caption" id="modalCaption">
+            <h3 id="modalTitle"></h3>
+            <p id="modalDescription"></p>
+        </div>
+        <div class="image-modal-nav image-modal-prev" onclick="changeImage(-1)">&#10094;</div>
+        <div class="image-modal-nav image-modal-next" onclick="changeImage(1)">&#10095;</div>
+    </div>
+
     <!-- Features Modal -->
     <div id="featuresModal" class="modal">
         <div class="modal-content">
@@ -1448,6 +1595,124 @@
         window.addEventListener('resize', function() {
             if (window.innerWidth > 768) {
                 closeMobileMenu();
+            }
+        });
+
+        // Image Modal Functions
+        let currentImageIndex = 0;
+        const images = [
+            {
+                src: 'screenshot6_analytics.png',
+                title: 'Analytics Dashboard',
+                description: 'Comprehensive analytics and performance tracking across all your events with visual charts and insights.'
+            },
+            {
+                src: 'screenshot1_pos1.png',
+                title: 'Professional POS System',
+                description: 'Full-featured point-of-sale interface with real-time inventory updates and receipt generation.'
+            },
+            {
+                src: 'screenshot2_eventcreate.png',
+                title: 'Event Creation',
+                description: 'Smart event planning with inventory selection and profit projections before you arrive.'
+            },
+            {
+                src: 'screenshot4_trading.png',
+                title: 'Card Trading System',
+                description: 'Dual-entry trading system with manual or API-based valuations and automatic inventory updates.'
+            },
+            {
+                src: 'screenshot5_conventionmgmt.png',
+                title: 'Convention Management',
+                description: 'Complete event management with vendor tracking, scheduling, and performance monitoring.'
+            },
+            {
+                src: 'screenshot3_customerdisplay.png',
+                title: 'Customer Display',
+                description: 'Professional customer-facing display for transparent pricing and smooth checkout experience.'
+            }
+        ];
+
+        function openImageModal(imageSrc, title, description) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            
+            // Find the current image index
+            currentImageIndex = images.findIndex(img => img.src === imageSrc);
+            
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            modalTitle.textContent = title;
+            modalDescription.textContent = description;
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeImageModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        function changeImage(direction) {
+            currentImageIndex += direction;
+            
+            // Wrap around if we go past the bounds
+            if (currentImageIndex >= images.length) {
+                currentImageIndex = 0;
+            } else if (currentImageIndex < 0) {
+                currentImageIndex = images.length - 1;
+            }
+            
+            const currentImage = images[currentImageIndex];
+            const modalImg = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDescription = document.getElementById('modalDescription');
+            
+            modalImg.src = currentImage.src;
+            modalTitle.textContent = currentImage.title;
+            modalDescription.textContent = currentImage.description;
+        }
+
+        // Make screenshot images clickable
+        document.addEventListener('DOMContentLoaded', function() {
+            const screenshotImages = document.querySelectorAll('.screenshot-image img');
+            screenshotImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    const title = this.closest('.screenshot-card').querySelector('.screenshot-title').textContent;
+                    const description = this.closest('.screenshot-card').querySelector('.screenshot-description').textContent;
+                    openImageModal(this.src, title, description);
+                });
+            });
+        });
+
+        // Close image modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const imageModal = document.getElementById('imageModal');
+            const featuresModal = document.getElementById('featuresModal');
+            
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+            if (event.target === featuresModal) {
+                closeFeaturesModal();
+            }
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeImageModal();
+                closeFeaturesModal();
+            }
+            // Navigate images with arrow keys when modal is open
+            if (document.getElementById('imageModal').style.display === 'block') {
+                if (event.key === 'ArrowLeft') {
+                    changeImage(-1);
+                } else if (event.key === 'ArrowRight') {
+                    changeImage(1);
+                }
             }
         });
     </script>
