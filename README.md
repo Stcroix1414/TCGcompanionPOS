@@ -101,14 +101,9 @@ Don't worry about the technical stuff - I'll personally help you get your system
 
 ### 📅 In-Person Setup at Shows
 
-I attend various Pokemon and gaming events throughout the year and can provide in-person setup assistance. Current upcoming shows include:
+I attend various Pokemon and gaming events throughout the year and can provide in-person setup assistance. My event schedule is currently being updated.
 
-- **Pokemon Regional Championships** (Seattle, Portland, Vancouver)
-- **Emerald City Comic Con** (Seattle)
-- **PAX West** (Seattle)
-- **Other gaming/TCG events** (Contact me for custom coordination)
-
-Simply click "Setup at Show" on the website to see the full calendar and request a meeting time at any event.
+Simply click "Setup at Show" on the website to check for upcoming events where I'll be available, or email me directly to coordinate meeting at a specific show you're attending.
 
 ## 📞 Contact Information
 
