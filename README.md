@@ -1,12 +1,29 @@
-# TCGcompanionPOS - Landing Page
+# TCGcompanionPOS - Self-Hosted POS Solution
 
-Professional landing page for TCGcompanionPOS, a comprehensive event management system built by AM TCG & Collectibles for Pokemon card vendors who sell at events.
+**Skip the expensive big-name POS systems!** Professional self-hosted point-of-sale system built by AM TCG & Collectibles specifically for Pokemon card vendors who want freedom from expensive corporate solutions.
 
 ## 🌐 Live Demo
 
 Visit the live site: [TCGcompanionPOS](https://stcroix1414.github.io/TCGcompanionPOS/)
 
-## 📋 Features Showcased
+## 🚀 Why Choose Self-Hosted Over Corporate POS?
+
+### ✅ **No Monthly Fees**
+- Pay once, own forever
+- No $50-200/month subscriptions like Square, Clover, or Toast
+- Your system, your rules
+
+### 🛡️ **Your Data Stays Yours**
+- No data mining or selling your customer info
+- No corporate surveillance
+- Complete privacy and control
+
+### ⚡ **Super Simple Setup**
+- 15-minute setup with personal assistance available
+- No technical expertise required
+- Direct help from the developer
+
+## 📋 Complete Feature Set
 
 - **Multi-Event Dashboard** - Track performance across multiple events with comprehensive analytics
 - **Professional POS System** - Full-featured point-of-sale with real-time inventory management
@@ -66,6 +83,20 @@ TCGcompanionPOS/
 - **Interactive Elements** - Hover effects, smooth scrolling, and modal dialogs
 - **Optimized Performance** - All CSS and JavaScript embedded for fast loading
 - **Professional Typography** - Inter font family for clean, modern appearance
+
+## 🤝 Personal Setup Assistance
+
+Don't worry about the technical stuff - I'll personally help you get your system running in about 15 minutes. No technical expertise required on your end.
+
+### What's Included:
+- ✅ **Quick Setup** - 15-minute guided installation
+- ✅ **Personal Support** - Direct help from the developer
+- ✅ **No Tech Skills Needed** - I'll handle the technical details
+- ✅ **Free Setup Help** - No additional charges for assistance
+
+### Get Help:
+- **Instagram**: [@am_tcgcollector](https://instagram.com/am_tcgcollector) - DM for setup help
+- **Email**: amtcgcollectibles@gmail.com - Email for setup assistance
 
 ## 📞 Contact Information
 
