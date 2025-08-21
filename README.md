@@ -97,6 +97,18 @@ Don't worry about the technical stuff - I'll personally help you get your system
 ### Get Help:
 - **Instagram**: [@am_tcgcollector](https://instagram.com/am_tcgcollector) - DM for setup help
 - **Email**: amtcgcollectibles@gmail.com - Email for setup assistance
+- **Setup at Show**: Meet in-person at upcoming Pokemon/gaming events for hands-on setup
+
+### 📅 In-Person Setup at Shows
+
+I attend various Pokemon and gaming events throughout the year and can provide in-person setup assistance. Current upcoming shows include:
+
+- **Pokemon Regional Championships** (Seattle, Portland, Vancouver)
+- **Emerald City Comic Con** (Seattle)
+- **PAX West** (Seattle)
+- **Other gaming/TCG events** (Contact me for custom coordination)
+
+Simply click "Setup at Show" on the website to see the full calendar and request a meeting time at any event.
 
 ## 📞 Contact Information
 

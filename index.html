@@ -1138,6 +1138,99 @@
             }
         }
 
+        /* Show List Styles */
+        .show-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .show-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .show-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-color);
+        }
+
+        .show-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .show-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .show-details {
+            flex: 1;
+        }
+
+        .show-details h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .show-details p {
+            color: var(--text-secondary);
+            margin: 0.25rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .show-details p i {
+            width: 16px;
+            color: var(--accent-color);
+        }
+
+        .show-action {
+            color: var(--accent-color);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .show-item:hover .show-action {
+            transform: translateX(4px);
+        }
+
+        /* Mobile responsiveness for show items */
+        @media (max-width: 768px) {
+            .show-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .show-details {
+                text-align: center;
+            }
+
+            .show-action {
+                display: none;
+            }
+        }
+
         /* Animations */
         .animate-on-scroll {
             opacity: 0;
@@ -1439,6 +1532,10 @@
                         <i class="fas fa-envelope"></i>
                         Email for Setup Assistance
                     </a>
+                    <a href="#show-calendar" class="social-link" onclick="showCalendarModal()">
+                        <i class="fas fa-calendar-alt"></i>
+                        Setup at Show (In-Person)
+                    </a>
                 </div>
             </div>
         </div>
@@ -1484,6 +1581,109 @@
         </div>
         <div class="image-modal-nav image-modal-prev" onclick="changeImage(-1)">&#10094;</div>
         <div class="image-modal-nav image-modal-next" onclick="changeImage(1)">&#10095;</div>
+    </div>
+
+    <!-- Show Calendar Modal -->
+    <div id="showCalendarModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-calendar-alt"></i> Setup at Show - In-Person Assistance</h2>
+                <p>Meet me at these upcoming shows for personal setup assistance</p>
+                <span class="close" onclick="closeCalendarModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
+                    <h3 style="color: white; margin-bottom: 1rem;">
+                        <i class="fas fa-handshake" style="margin-right: 0.5rem;"></i>
+                        In-Person Setup Available
+                    </h3>
+                    <p style="color: rgba(255, 255, 255, 0.9); margin-bottom: 0;">
+                        I'll be attending these shows and can meet with you for a quick 15-minute setup session. Just email me after clicking a show below, and I'll coordinate a meeting time with you at the event.
+                    </p>
+                </div>
+
+                <div class="show-list">
+                    <div class="show-item" onclick="requestShowSetup('Pokemon Regional Championship - Seattle', 'February 15-16, 2025', 'Seattle Convention Center')">
+                        <div class="show-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="show-details">
+                            <h4>Pokemon Regional Championship - Seattle</h4>
+                            <p><i class="fas fa-calendar"></i> February 15-16, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Seattle Convention Center</p>
+                        </div>
+                        <div class="show-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="show-item" onclick="requestShowSetup('Pokemon Regional Championship - Portland', 'March 8-9, 2025', 'Oregon Convention Center')">
+                        <div class="show-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="show-details">
+                            <h4>Pokemon Regional Championship - Portland</h4>
+                            <p><i class="fas fa-calendar"></i> March 8-9, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Oregon Convention Center</p>
+                        </div>
+                        <div class="show-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="show-item" onclick="requestShowSetup('Emerald City Comic Con', 'March 21-23, 2025', 'Washington State Convention Center')">
+                        <div class="show-icon">
+                            <i class="fas fa-mask"></i>
+                        </div>
+                        <div class="show-details">
+                            <h4>Emerald City Comic Con</h4>
+                            <p><i class="fas fa-calendar"></i> March 21-23, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Washington State Convention Center</p>
+                        </div>
+                        <div class="show-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="show-item" onclick="requestShowSetup('Pokemon Regional Championship - Vancouver', 'April 12-13, 2025', 'Vancouver Convention Centre')">
+                        <div class="show-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="show-details">
+                            <h4>Pokemon Regional Championship - Vancouver</h4>
+                            <p><i class="fas fa-calendar"></i> April 12-13, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Vancouver Convention Centre</p>
+                        </div>
+                        <div class="show-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="show-item" onclick="requestShowSetup('PAX West', 'August 29 - September 1, 2025', 'Washington State Convention Center')">
+                        <div class="show-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="show-details">
+                            <h4>PAX West</h4>
+                            <p><i class="fas fa-calendar"></i> August 29 - September 1, 2025</p>
+                            <p><i class="fas fa-map-marker-alt"></i> Washington State Convention Center</p>
+                        </div>
+                        <div class="show-action">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 12px; margin-top: 2rem; text-align: center;">
+                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">Don't see your show?</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 1rem;">Let me know what shows you're attending and I'll try to coordinate meeting you there.</p>
+                    <a href="mailto:amtcgcollectibles@gmail.com?subject=Setup at Show Request - Custom Event" class="btn btn-secondary" style="background: var(--accent-color); color: white; border: none;">
+                        <i class="fas fa-envelope"></i>
+                        Request Custom Show Setup
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Features Modal -->
@@ -1831,6 +2031,7 @@
             if (event.key === 'Escape') {
                 closeImageModal();
                 closeFeaturesModal();
+                closeCalendarModal();
             }
             // Navigate images with arrow keys when modal is open
             if (document.getElementById('imageModal').style.display === 'block') {
@@ -1839,6 +2040,62 @@
                 } else if (event.key === 'ArrowRight') {
                     changeImage(1);
                 }
+            }
+        });
+
+        // Show Calendar Modal Functions
+        function showCalendarModal() {
+            document.getElementById('showCalendarModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeCalendarModal() {
+            document.getElementById('showCalendarModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Request Show Setup Function
+        function requestShowSetup(showName, showDate, showLocation) {
+            const subject = encodeURIComponent(`Setup at Show Request - ${showName}`);
+            const body = encodeURIComponent(`Hi there!
+
+I'd like to request in-person setup assistance for TCGcompanionPOS at the following event:
+
+Event: ${showName}
+Date: ${showDate}
+Location: ${showLocation}
+
+I understand this is a 15-minute setup session where you'll help me get the system running on my device. Please let me know what time works best for you during the event, and where we should meet.
+
+Looking forward to getting my own self-hosted POS system up and running!
+
+Thanks,
+[Your Name]
+[Your Phone Number - optional]`);
+
+            const mailtoLink = `mailto:amtcgcollectibles@gmail.com?subject=${subject}&body=${body}`;
+            
+            // Close the modal first
+            closeCalendarModal();
+            
+            // Open email client
+            window.location.href = mailtoLink;
+        }
+
+        // Close calendar modal when clicking outside of it
+        window.addEventListener('click', function(event) {
+            const imageModal = document.getElementById('imageModal');
+            const featuresModal = document.getElementById('featuresModal');
+            const calendarModal = document.getElementById('showCalendarModal');
+            
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+            if (event.target === featuresModal) {
+                closeFeaturesModal();
+            }
+            if (event.target === calendarModal) {
+                closeCalendarModal();
             }
         });
     </script>
