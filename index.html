@@ -157,6 +157,53 @@
         .hero-content {
             position: relative;
             z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .hero-text {
+            text-align: left;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-product-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-2xl);
+            transition: all 0.3s ease;
+        }
+
+        .hero-product-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Mobile responsiveness for hero layout */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .hero-text {
+                text-align: center;
+                order: 1;
+            }
+
+            .hero-image {
+                order: 2;
+            }
         }
 
         .hero-hook {
@@ -1138,21 +1185,26 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-hook">
-                    <p class="hook-text">Transform your Trading Card business with enterprise-grade tools</p>
-                    <p class="hook-slogan"><strong>Professional Event Management • Evolved for Success</strong></p>
+                <div class="hero-text">
+                    <div class="hero-hook">
+                        <p class="hook-text">Transform your Trading Card business with enterprise-grade tools</p>
+                        <p class="hook-slogan"><strong>Professional Event Management • Evolved for Success</strong></p>
+                    </div>
+                    <h1>TCGcompanionPOS<br>Professional Event Management</h1>
+                    <p>Comprehensive inventory management, point-of-sale functionality, and analytics dashboard built by AM TCG & Collectibles for Pokemon card vendors who sell at events.</p>
+                    <div class="hero-buttons">
+                        <a href="#demo" class="btn btn-primary">
+                            <i class="fas fa-play"></i>
+                            View Demo
+                        </a>
+                        <a href="#" class="btn btn-secondary" onclick="showFeaturesModal()">
+                            <i class="fas fa-info-circle"></i>
+                            Learn More
+                        </a>
+                    </div>
                 </div>
-                <h1>TCGcompanionPOS<br>Professional Event Management</h1>
-                <p>Comprehensive inventory management, point-of-sale functionality, and analytics dashboard built by AM TCG & Collectibles for Pokemon card vendors who sell at events.</p>
-                <div class="hero-buttons">
-                    <a href="#demo" class="btn btn-primary">
-                        <i class="fas fa-play"></i>
-                        View Demo
-                    </a>
-                    <a href="#" class="btn btn-secondary" onclick="showFeaturesModal()">
-                        <i class="fas fa-info-circle"></i>
-                        Learn More
-                    </a>
+                <div class="hero-image">
+                    <img src="TCGcompanionPOS.png" alt="TCGcompanionPOS Dashboard Preview" class="hero-product-image" />
                 </div>
             </div>
         </div>
