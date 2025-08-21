@@ -146,6 +146,50 @@
             z-index: 1;
         }
 
+        .hero-hook {
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hook-text {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+
+        .hook-slogan {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.4));
+            }
+            to {
+                filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.6));
+            }
+        }
+
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -230,7 +274,7 @@
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -284,7 +328,7 @@
 
         .screenshots-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-top: 3rem;
         }
@@ -594,36 +638,308 @@
             text-align: center;
         }
 
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 1px solid var(--medium-gray);
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 1rem 2rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        .mobile-nav-link:hover {
+            color: var(--primary-color);
+            background: var(--light-gray);
+        }
+
+        .mobile-nav-link:last-child {
+            border-bottom: none;
+        }
+
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero {
+                padding: 8rem 0 6rem;
+            }
+            
+            .features, .screenshots, .cta-section {
+                padding: 4rem 0;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
+            .mobile-menu-toggle {
+                display: block;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
+            .logo span {
+                font-size: 1.2rem;
+            }
+
+            .logo i {
+                font-size: 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 0 4rem;
+                margin-top: 70px;
+            }
+
+            .hero-hook {
+                margin-bottom: 1.5rem;
+            }
+
+            .hook-text {
+                font-size: 1rem;
+            }
+
+            .hook-slogan {
+                font-size: 1.1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .btn {
+                padding: 0.875rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .features, .screenshots, .cta-section {
+                padding: 3rem 0;
+            }
+
+            .section-header {
+                margin-bottom: 2.5rem;
             }
 
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
+                line-height: 1.3;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .cta-content h2 {
+                font-size: 1.8rem;
+                line-height: 1.3;
+            }
+
+            .cta-content p {
+                font-size: 1rem;
+            }
+
+            .social-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.75rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            /* Modal Responsiveness */
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+                max-height: 85vh;
+            }
+
+            .modal-header {
+                padding: 1.5rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .close {
+                right: 1.5rem;
+                top: 1.5rem;
+                font-size: 1.5rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
             }
 
             .feature-detail {
                 flex-direction: column;
                 text-align: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+            }
+
+            .feature-detail-icon {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto;
+            }
+
+            .feature-detail-icon i {
+                font-size: 1.5rem;
+            }
+
+            .feature-detail-content h3 {
+                font-size: 1.25rem;
+            }
+
+            .modal-footer {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .feature-description {
+                font-size: 0.9rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .cta-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .modal-content {
+                width: 98%;
+                margin: 2% auto;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .modal-footer {
+                padding: 1rem;
+            }
+        }
+
+        /* Landscape Mobile */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                padding: 4rem 0 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
             }
         }
 
@@ -655,7 +971,18 @@
                     <a href="#contact" class="nav-link">Contact</a>
                     <a href="#demo" class="cta-button">Get Started</a>
                 </div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
             </nav>
+            <div class="mobile-nav" id="mobileNav">
+                <div class="mobile-nav-links">
+                    <a href="#features" class="mobile-nav-link" onclick="closeMobileMenu()">Features</a>
+                    <a href="#screenshots" class="mobile-nav-link" onclick="closeMobileMenu()">Screenshots</a>
+                    <a href="#contact" class="mobile-nav-link" onclick="closeMobileMenu()">Contact</a>
+                    <a href="#demo" class="mobile-nav-link" onclick="closeMobileMenu()">Get Started</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -663,6 +990,10 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
+                <div class="hero-hook">
+                    <p class="hook-text">Tired of your old POS system or don't have one at all?</p>
+                    <p class="hook-slogan">🔥 <strong>It's time to evolve your business - Gotta Catch 'Em All... Sales!</strong> 🔥</p>
+                </div>
                 <h1>TCGcompanionPOS<br>Professional Event Management</h1>
                 <p>Comprehensive inventory management, point-of-sale functionality, and analytics dashboard built by AM TCG & Collectibles for Pokemon card vendors who sell at events.</p>
                 <div class="hero-buttons">
@@ -1074,6 +1405,49 @@
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeFeaturesModal();
+            }
+        });
+
+        // Mobile Menu Functions
+        function toggleMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuToggle = document.querySelector('.mobile-menu-toggle i');
+            
+            mobileNav.classList.toggle('active');
+            
+            // Change hamburger to X when open
+            if (mobileNav.classList.contains('active')) {
+                menuToggle.classList.remove('fa-bars');
+                menuToggle.classList.add('fa-times');
+            } else {
+                menuToggle.classList.remove('fa-times');
+                menuToggle.classList.add('fa-bars');
+            }
+        }
+
+        function closeMobileMenu() {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuToggle = document.querySelector('.mobile-menu-toggle i');
+            
+            mobileNav.classList.remove('active');
+            menuToggle.classList.remove('fa-times');
+            menuToggle.classList.add('fa-bars');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileNav = document.getElementById('mobileNav');
+            const menuToggle = document.querySelector('.mobile-menu-toggle');
+            
+            if (!mobileNav.contains(event.target) && !menuToggle.contains(event.target)) {
+                closeMobileMenu();
+            }
+        });
+
+        // Close mobile menu on window resize if screen becomes larger
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
             }
         });
     </script>
